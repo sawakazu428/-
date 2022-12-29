@@ -1,4 +1,5 @@
 ﻿#include <Novice.h>
+#include "Player.h"
 
 const char kWindowTitle[] = "GC1A_12_サワダカズキ_タイトル";
 
@@ -12,6 +13,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char keys[256] = {0};
 	char preKeys[256] = {0};
 
+	Player player;
+
+	player.Initialize();
+
+	PlayerBullet playerbullet;
+
+	playerbullet.Initialize();
+
+	int playerBulletDistance;
+
+	int score = 0;
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -25,6 +37,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
+		player.Move(keys, preKeys);
+
+		player.Update(keys, preKeys);
+
+		playerBulletDistance = (playerbullet.GetPlayerBulletPosX() - enemy.) * (playerbullet.GetPlayerBulletPosX() - enemy.) + (playerbullet.GetPlayerBulletPosY() - enemy.) * (playerbullet.GetPlayerBulletPosY() - enemy.);
+
+		if (enemy.isAlive && playerbullet.GetPlayerIsBulletShot() == true)
+		{
+			if (playerbullet.GetPlayerBulletRadius() + enemy.radius()) * (playerbullet.GetPlayerBulletRadius() + enemy.radius()) >= playerBulletDistance)
+			{
+
+			playerbullet.BulletOnColision();
+			score += 100;
+			}
+		}
 		///
 		/// ↑更新処理ここまで
 		///

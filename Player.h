@@ -1,5 +1,6 @@
 #pragma once
 #include "Novice.h"
+#include "PlayerBullet.h"
 class Player
 {
 private:
@@ -14,6 +15,13 @@ private:
 
 	int delayFrameBullet_;
 	int playerDelayFrameBullet_;
+	int playerHitTime_;
+	bool isPlayerInvincibleHit_;
+	bool isPlayerPoint_;
+	int playerDefeatCount_;
+	int blueHealth_[3];
+
+	PlayerBullet playerbullet_;
 public:
 	/// <summary>
 	/// èâä˙âªä÷êî

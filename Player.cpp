@@ -12,11 +12,65 @@ void Player::Initialize()
 	playerIsAlive_ = true;
 	delayFrameBullet_ = 10;
 	playerDelayFrameBullet_ = delayFrameBullet_;
+
+	playerHitTime_ = 90;
+	isPlayerInvincibleHit_ = true;
+	isPlayerPoint_ = true;
+	playerExplosion_ = false;
+	playerDefeatCount_ = 60;
+	blueHealth_[0] = Novice::LoadTexture("./Resources/blueHeart.png");
+	blueHealth_[1] = Novice::LoadTexture("./Resources/blueHeart.png");
+	blueHealth_[2] = Novice::LoadTexture("./Resources/blueHeart.png");
+
 }
 
 void Player::Update(char* keys, char* preKeys)
 {
+	if (playerDelayFrameBullet_ < 0)
+	{
+		playerDelayFrameBullet_--;
+	}
 
+	if (playerbullet_.GetPlayerIsBulletShot() == false)
+	{
+		if (keys[DIK_SPACE] && playerDelayFrameBullet_ <= 0)
+		{
+			playerDelayFrameBullet_ = delayFrameBullet_;
+			playerbullet_.SetPlayerBulletInfo(playerPosX_, playerPosY_, playerSpeedX_, playerSpeedY_, playerRadius_);
+		}
+	}
+
+	playerbullet_.Update();
+
+	if (playerIsAlive_ == false)
+	{
+		playerHitTime_--;;
+	}
+	if (playerHitTime_ <= 0)
+	{
+		playerIsAlive_ = true;
+		isPlayerInvincibleHit_ = false;
+		playerHitTime_ = 90;
+	}
+	if (playerHP_ == 0)
+	{
+		isPlayerPoint_ = false;
+	}
+	if (isPlayerPoint_ == false)
+	{
+		playerDefeatCount_--;
+		playerExplosion_ = true;
+	}
+	if (playerDefeatCount_ <= 30)
+	{
+		playerExplosion_ = false;
+	}
+	if (playerDefeatCount_ == 0)
+	{
+		playerHP_ = 3;
+		isPlayerPoint_ = true;
+		playerDefeatCount_ = 60;
+	}
 }
 
 void Player::Move(char* keys, char* preKeys)
@@ -63,5 +117,29 @@ void Player::Move(char* keys, char* preKeys)
 
 void Player::Draw()
 {
-	Novice::DrawBox(playerPosX_, playerPosY_, playerRadius_, playerRadius_, 0.0f, WHITE, kFillModeSolid);
+	if (playerHP_ >= 1)
+	{
+		Novice::DrawBox(playerPosX_, playerPosY_, playerRadius_, playerRadius_, 0.0f, WHITE, kFillModeSolid);
+		if (isPlayerInvincibleHit_ == true)
+		{
+			Novice::DrawBox(playerPosX_, playerPosY_, playerRadius_, playerRadius_, 0.0f, RED, kFillModeSolid);
+		}
+	}
+
+	if (playerHP_== 3)
+	{
+		Novice::DrawSprite(884, 245, blueHealth_[2], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(852, 245, blueHealth_[1], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(820, 245, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
+	}
+	if (playerHP_ == 2)
+	{
+		Novice::DrawSprite(852, 245, blueHealth_[1], 1, 1, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(820, 245, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
+	}
+	if (playerHP_ == 1)
+	{
+		Novice::DrawSprite(820, 245, blueHealth_[0], 1, 1, 0.0f, 0xFFFFFFFF);
+	}
+
 }
