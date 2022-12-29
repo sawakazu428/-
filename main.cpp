@@ -41,17 +41,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		player.Update(keys, preKeys);
 
-		playerBulletDistance = (playerbullet.GetPlayerBulletPosX() - enemy.) * (playerbullet.GetPlayerBulletPosX() - enemy.) + (playerbullet.GetPlayerBulletPosY() - enemy.) * (playerbullet.GetPlayerBulletPosY() - enemy.);
+	//	playerBulletDistance = (playerbullet.GetPlayerBulletPosX() - enemy.) * (playerbullet.GetPlayerBulletPosX() - enemy.) + (playerbullet.GetPlayerBulletPosY() - enemy.) * (playerbullet.GetPlayerBulletPosY() - enemy.);
 
-		if (enemy.isAlive && playerbullet.GetPlayerIsBulletShot() == true)
-		{
-			if (playerbullet.GetPlayerBulletRadius() + enemy.radius()) * (playerbullet.GetPlayerBulletRadius() + enemy.radius()) >= playerBulletDistance)
-			{
+	////	if (enemy.isAlive && playerbullet.GetPlayerIsBulletShot() == true)
+	//	{
+	//	//	if (playerbullet.GetPlayerBulletRadius() + enemy.radius()) * (playerbullet.GetPlayerBulletRadius() + enemy.radius()) >= playerBulletDistance)
+	//		{
 
-			playerbullet.BulletOnColision();
-			score += 100;
-			}
-		}
+	//		playerbullet.BulletOnColision();
+	//		score += 100;
+	//		}
+	//	}
 		///
 		/// ↑更新処理ここまで
 		///
