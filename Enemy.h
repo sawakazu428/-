@@ -1,4 +1,6 @@
 #pragma once
+#include "Novice.h"
+#include "EnemyBullet.h"
 class Enemy
 {
 private:
@@ -18,5 +20,23 @@ private:
 	int enemyDelayFrameBullet_;
 	int enemyPoint_;
 	int drawExplosion1_[6];
+	EnemyBullet enemyBullet_;
+public:
+	void Initialize();
+
+	void Update();
+
+	void Move();
+
+	void Draw();
+
+	void EnemyOnColision();
+
+	int GetEnemyPosX() { return enemyPosX_; };
+	int GetEnemyPosY() { return enemyPosY_; };
+	int GetEnemySpeedX() { return enemySpeedX_; };
+	int GetEnemySpeedY() { return enemySpeedY_; };
+	int GetEnemyRadius() { return enemyRadius_; };
+	int GetEnemyIsAlive() { return enemyIsAlive_; };
 };
 
